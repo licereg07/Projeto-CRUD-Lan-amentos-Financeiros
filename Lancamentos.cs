@@ -96,16 +96,15 @@ namespace Projeto_CRUD_Lançamentos_Financeiros
             cmd.Connection = cn;
             cmd.Transaction = tran;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "update lancamentos set valor = @valor, descricao = @descricao, data = @data_lançamento, tipo = @tipo where id = @id";
+            cmd.CommandText = "update lancamentos set valor = @valor, descricao = @descricao where id = @id";
 
-            cmd.Parameters.Add("@nome", SqlDbType.VarChar);
-            cmd.Parameters.Add("@email", SqlDbType.VarChar);
+            cmd.Parameters.Add("@valor", SqlDbType.Real);
+            cmd.Parameters.Add("@descricao", SqlDbType.VarChar);
             cmd.Parameters.Add("@id", SqlDbType.Int);
             cmd.Parameters[0].Value = valor;
             cmd.Parameters[1].Value = descricao;
-            cmd.Parameters[2].Value = data_lançamento;
-            cmd.Parameters[3].Value = tipo;
-            cmd.Parameters[4].Value = id;
+            cmd.Parameters[2].Value = id;
+
 
             try
             {
@@ -113,7 +112,7 @@ namespace Projeto_CRUD_Lançamentos_Financeiros
                 tran.Commit();
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 tran.Rollback();
                 return false;
@@ -122,7 +121,6 @@ namespace Projeto_CRUD_Lançamentos_Financeiros
             {
                 bd.fecharConexao();
             }
-
 
         }
 
@@ -156,6 +154,47 @@ namespace Projeto_CRUD_Lançamentos_Financeiros
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao consultar: " + ex.Message);
+                return null;
+            }
+            finally
+            {
+                bd.fecharConexao();
+            }
+        }
+
+        public Lancamentos verlancamentos(int id)
+        {
+            Banco bd = new Banco();
+
+            try
+            {
+                SqlConnection cn = bd.abrirConexao();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cn;
+                cmd.CommandText = "select * from lancamentos";
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) == id)
+                    {
+                        this.id = reader.GetInt32(0);
+                        this.descricao = reader.GetString(2);
+                        this.valor = reader.GetDecimal(1);
+                        this.data_lançamento = DateTime.Parse(reader.GetString(3));
+                        this.tipo = reader.GetString(4);
+
+                        return this;
+                    }
+                }
+
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+
                 return null;
             }
             finally

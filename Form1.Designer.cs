@@ -45,6 +45,16 @@
             btnconsultar = new Button();
             dataGridView1 = new DataGridView();
             btngravar = new Button();
+            label1 = new Label();
+            lbltipo3 = new Label();
+            lbltocre = new Label();
+            lbltode = new Label();
+            btneditar = new Button();
+            txbid = new TextBox();
+            txbvalor2 = new TextBox();
+            txbdesc2 = new TextBox();
+            btnver = new Button();
+            btnexcluir = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -136,17 +146,17 @@
             // 
             lblsaldo.AutoSize = true;
             lblsaldo.Font = new Font("Arial Narrow", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblsaldo.Location = new Point(27, 392);
+            lblsaldo.Location = new Point(592, 450);
             lblsaldo.Name = "lblsaldo";
-            lblsaldo.Size = new Size(120, 25);
+            lblsaldo.Size = new Size(166, 25);
             lblsaldo.TabIndex = 21;
-            lblsaldo.Text = "Saldo Atual: ";
+            lblsaldo.Text = "Saldo Total atual: ";
             // 
             // cbfiltros
             // 
             cbfiltros.FormattingEnabled = true;
             cbfiltros.Items.AddRange(new object[] { "Todos", "Crédito", "Débito" });
-            cbfiltros.Location = new Point(684, 449);
+            cbfiltros.Location = new Point(690, 581);
             cbfiltros.Name = "cbfiltros";
             cbfiltros.Size = new Size(121, 23);
             cbfiltros.TabIndex = 24;
@@ -155,7 +165,7 @@
             // 
             lblfiltro.AutoSize = true;
             lblfiltro.Font = new Font("Arial", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblfiltro.Location = new Point(592, 449);
+            lblfiltro.Location = new Point(592, 581);
             lblfiltro.Name = "lblfiltro";
             lblfiltro.Size = new Size(66, 24);
             lblfiltro.TabIndex = 25;
@@ -164,7 +174,7 @@
             // btnfiltro
             // 
             btnfiltro.BackColor = Color.LightBlue;
-            btnfiltro.Location = new Point(843, 443);
+            btnfiltro.Location = new Point(853, 575);
             btnfiltro.Name = "btnfiltro";
             btnfiltro.Size = new Size(84, 33);
             btnfiltro.TabIndex = 26;
@@ -194,11 +204,11 @@
             // 
             btnconsultar.BackColor = Color.DeepSkyBlue;
             btnconsultar.Font = new Font("Arial Narrow", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnconsultar.Location = new Point(592, 28);
+            btnconsultar.Location = new Point(650, 40);
             btnconsultar.Name = "btnconsultar";
-            btnconsultar.Size = new Size(111, 30);
+            btnconsultar.Size = new Size(213, 30);
             btnconsultar.TabIndex = 29;
-            btnconsultar.Text = "Consultar";
+            btnconsultar.Text = "Mostrar saldo e registro atual";
             btnconsultar.UseVisualStyleBackColor = false;
             btnconsultar.Click += btnconsultar_Click;
             // 
@@ -209,6 +219,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(335, 341);
             dataGridView1.TabIndex = 0;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // btngravar
             // 
@@ -217,12 +228,118 @@
             btngravar.Size = new Size(75, 23);
             btngravar.TabIndex = 0;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial Narrow", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(30, 394);
+            label1.Name = "label1";
+            label1.Size = new Size(214, 24);
+            label1.TabIndex = 30;
+            label1.Text = "Valor Creditado/Debitado: ";
+            label1.Click += label1_Click;
+            // 
+            // lbltipo3
+            // 
+            lbltipo3.AutoSize = true;
+            lbltipo3.Font = new Font("Arial Narrow", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbltipo3.Location = new Point(89, 184);
+            lbltipo3.Name = "lbltipo3";
+            lbltipo3.Size = new Size(15, 24);
+            lbltipo3.TabIndex = 31;
+            lbltipo3.Text = "-";
+            lbltipo3.Click += label2_Click;
+            // 
+            // lbltocre
+            // 
+            lbltocre.AutoSize = true;
+            lbltocre.Font = new Font("Arial Narrow", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbltocre.Location = new Point(592, 491);
+            lbltocre.Name = "lbltocre";
+            lbltocre.Size = new Size(149, 25);
+            lbltocre.TabIndex = 32;
+            lbltocre.Text = "Total Creditado:";
+            // 
+            // lbltode
+            // 
+            lbltode.AutoSize = true;
+            lbltode.Font = new Font("Arial Narrow", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbltode.Location = new Point(592, 533);
+            lbltode.Name = "lbltode";
+            lbltode.Size = new Size(142, 25);
+            lbltode.TabIndex = 33;
+            lbltode.Text = "Total Debitado:";
+            // 
+            // btneditar
+            // 
+            btneditar.BackColor = Color.LightBlue;
+            btneditar.Location = new Point(24, 599);
+            btneditar.Name = "btneditar";
+            btneditar.Size = new Size(149, 33);
+            btneditar.TabIndex = 34;
+            btneditar.Text = "Editar Lançamento";
+            btneditar.UseVisualStyleBackColor = false;
+            btneditar.Click += btneditar_Click;
+            // 
+            // txbid
+            // 
+            txbid.Location = new Point(27, 455);
+            txbid.Name = "txbid";
+            txbid.Size = new Size(146, 23);
+            txbid.TabIndex = 35;
+            txbid.TextChanged += txbid_TextChanged;
+            // 
+            // txbvalor2
+            // 
+            txbvalor2.Location = new Point(27, 506);
+            txbvalor2.Name = "txbvalor2";
+            txbvalor2.Size = new Size(146, 23);
+            txbvalor2.TabIndex = 36;
+            // 
+            // txbdesc2
+            // 
+            txbdesc2.Location = new Point(27, 555);
+            txbdesc2.Name = "txbdesc2";
+            txbdesc2.Size = new Size(146, 23);
+            txbdesc2.TabIndex = 37;
+            // 
+            // btnver
+            // 
+            btnver.Location = new Point(207, 455);
+            btnver.Name = "btnver";
+            btnver.Size = new Size(75, 23);
+            btnver.TabIndex = 39;
+            btnver.Text = "button1";
+            btnver.UseVisualStyleBackColor = true;
+            btnver.Click += btnver_Click;
+            // 
+            // btnexcluir
+            // 
+            btnexcluir.BackColor = Color.Salmon;
+            btnexcluir.Location = new Point(24, 648);
+            btnexcluir.Name = "btnexcluir";
+            btnexcluir.Size = new Size(149, 33);
+            btnexcluir.TabIndex = 40;
+            btnexcluir.Text = "Excluir Lançamento";
+            btnexcluir.UseVisualStyleBackColor = false;
+            btnexcluir.Click += btnexcluir_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.PowderBlue;
             ClientSize = new Size(1008, 830);
+            Controls.Add(btnexcluir);
+            Controls.Add(btnver);
+            Controls.Add(txbdesc2);
+            Controls.Add(txbvalor2);
+            Controls.Add(txbid);
+            Controls.Add(btneditar);
+            Controls.Add(lbltode);
+            Controls.Add(lbltocre);
+            Controls.Add(lbltipo3);
+            Controls.Add(label1);
             Controls.Add(btngravar);
             Controls.Add(btnconsultar);
             Controls.Add(lbltipo2);
@@ -266,5 +383,15 @@
         private DataGridView dataGridView1;
         private Button btngravar;
         private ComboBox cbfiltros;
+        private Label label1;
+        private Label lbltipo3;
+        private Label lbltocre;
+        private Label lbltode;
+        private Button btneditar;
+        private TextBox txbid;
+        private TextBox txbvalor2;
+        private TextBox txbdesc2;
+        private Button btnver;
+        private Button btnexcluir;
     }
 }
